@@ -10,7 +10,7 @@
 
 
 
-
+#include "Engine/World.h"
 #include "public/Tank.h"
 #include "CoreMinimal.h"
 #include "AIController.h"
@@ -27,5 +27,5 @@ class BATTLE_TANK_API ATankAIController : public AAIController
 public:
 	virtual void BeginPlay() override;
 	ATank * GetAIControlledTank() const;
-	
+	ATank* GetPlayerTank() const;
 };
