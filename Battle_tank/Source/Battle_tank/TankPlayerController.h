@@ -26,4 +26,9 @@ public:
 	ATank * GetControlledTank() const;
 	
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+
+private:
+	//Move the barrel of the tank toward the intersecting between the worl ind the crosshaire
+	void AimTowardCrossaihair();
 };

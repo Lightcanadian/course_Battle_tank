@@ -2,14 +2,6 @@
 
 #include "TankPlayerController.h"
 
-
-
-
-ATank * ATankPlayerController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
-
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -23,4 +15,28 @@ void ATankPlayerController::BeginPlay()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Player controller posessing %s"), *(ControlledTank->GetName()));
 	}
+}
+
+void ATankPlayerController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	
+	//UE_LOG(LogTemp, Warning, TEXT("time: %f"), DeltaTime);
+	//tick 
+		//super
+		//AimTowardCrossaire
+}
+
+void ATankPlayerController::AimTowardCrossaihair()
+{
+	if (!GetControlledTank())
+	{
+		return;
+	}
+	//get world location if line trace through crosshaire
+}
+
+ATank * ATankPlayerController::GetControlledTank() const
+{
+	return Cast<ATank>(GetPawn());
 }
