@@ -45,3 +45,15 @@ ATank * ATankAIController::GetPlayerTank() const
 		return Cast<ATank>(PlayerTank);
 	}
 }
+
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	if (GetPlayerTank())
+	{
+		//TODO move toward player
+		//aim toward player
+		GetAIControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
+		//fire when ready
+	}
+}
