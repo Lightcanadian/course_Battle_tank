@@ -2,8 +2,8 @@
 
 #pragma once
 
-
-
+#include "Engine/World.h"
+#include "Camera/PlayerCameraManager.h"
 
 
 
@@ -40,5 +40,11 @@ private:
 	UPROPERTY(EditAnywhere)
 		float CrossHairYLocation = 0.3333;
 
+	UPROPERTY(EditAnywhere)
+		float LineTraceRange = 1000000.0;
+
 	bool GetLookDirection(FVector2D ,FVector& ) const;
+
+	bool GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const;
+
 };
