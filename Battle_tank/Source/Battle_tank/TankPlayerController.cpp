@@ -2,6 +2,7 @@
 
 #include "TankPlayerController.h"
 
+//Make a indicator for reference pointer
 #define OUT
 
 void ATankPlayerController::BeginPlay()
@@ -24,24 +25,27 @@ void ATankPlayerController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	AimTowardCrossaihair();
 	//UE_LOG(LogTemp, Warning, TEXT("time: %f"), DeltaTime);
-	//tick 
-		//super
-		//AimTowardCrossaire
+	
 }
 
+/*
+*
+*/
 void ATankPlayerController::AimTowardCrossaihair()
 {
 	if (!GetControlledTank()){ return; }
 	FVector HitLocation;
 	if (GetSightRayHitLocation(HitLocation))
 	{
-
 		GetControlledTank()->AimAt(HitLocation);
 		// UE_LOG(LogTemp, Warning, TEXT("Ray Location HIt: %s"), *HitLocation.ToString());
 		//get world location if line trace through crosshaire
 	}
 }
 
+/*
+Get the location of the raycast out of camera reticule
+*/
 bool ATankPlayerController::GetSightRayHitLocation(FVector &OutHitLocation) const
 {
 	//find the Crosshaire location in pixel coordinate
@@ -62,6 +66,9 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &OutHitLocation) cons
 	return false;
 }
 
+/*
+give the direction of where the camera is looking at. location is the reticule location in the UI.
+*/
 bool ATankPlayerController::GetLookDirection(FVector2D Location,FVector &OutLookDirection) const
 {	
 	FVector ignore;
@@ -73,18 +80,15 @@ bool ATankPlayerController::GetLookDirection(FVector2D Location,FVector &OutLook
 		OutLookDirection
 	);
 }
-
+/*
+Do a line trace out of the camera with the provided look direction
+*/
 bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const
 {
 	FHitResult HitResult;
 	auto StartLocation = PlayerCameraManager->GetCameraLocation();
 	auto EndLocation = StartLocation + (LookDirection * LineTraceRange);
-	if (GetWorld()->LineTraceSingleByChannel(
-		HitResult,
-		StartLocation,
-		EndLocation,
-		ECollisionChannel::ECC_Visibility)
-		)
+	if (GetWorld()->LineTraceSingleByChannel( HitResult, StartLocation,	EndLocation, ECollisionChannel::ECC_Visibility)	)
 	{
 		HitLocation = HitResult.Location;
 		return true;
@@ -95,5 +99,6 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 
 ATank * ATankPlayerController::GetControlledTank() const
 {
+	//Transform the pawn into a tank
 	return Cast<ATank>(GetPawn());
 }
