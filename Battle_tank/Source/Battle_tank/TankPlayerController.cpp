@@ -2,7 +2,7 @@
 
 #include "TankPlayerController.h"
 
-//Make a indicator for reference pointer
+//Make a indicator for reference pointer.
 #define OUT
 
 void ATankPlayerController::BeginPlay()
@@ -29,22 +29,21 @@ void ATankPlayerController::Tick(float DeltaTime)
 }
 
 /*
-*
+*TODO finis aiming.
 */
 void ATankPlayerController::AimTowardCrossaihair()
 {
 	if (!GetControlledTank()){ return; }
 	FVector HitLocation;
 	if (GetSightRayHitLocation(HitLocation))
-	{
-		GetControlledTank()->AimAt(HitLocation);
-		// UE_LOG(LogTemp, Warning, TEXT("Ray Location HIt: %s"), *HitLocation.ToString());
+	{				
 		//get world location if line trace through crosshaire
+		GetControlledTank()->AimAt(HitLocation);
 	}
 }
 
 /*
-Get the location of the raycast out of camera reticule
+Get the location of the raycast out of camera reticule.
 */
 bool ATankPlayerController::GetSightRayHitLocation(FVector &OutHitLocation) const
 {
@@ -67,7 +66,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &OutHitLocation) cons
 }
 
 /*
-give the direction of where the camera is looking at. location is the reticule location in the UI.
+Give the direction of where the camera is looking at. location is the reticule location in the UI.
 */
 bool ATankPlayerController::GetLookDirection(FVector2D Location,FVector &OutLookDirection) const
 {	
@@ -80,8 +79,9 @@ bool ATankPlayerController::GetLookDirection(FVector2D Location,FVector &OutLook
 		OutLookDirection
 	);
 }
+
 /*
-Do a line trace out of the camera with the provided look direction
+Do a line trace out of the camera with the provided look direction. Usually used with GetLookDirection() function.
 */
 bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const
 {
@@ -97,8 +97,11 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 	return false;
 }
 
+/*
+Return the pawn as tank(return it self)
+*/
 ATank * ATankPlayerController::GetControlledTank() const
 {
-	//Transform the pawn into a tank
+	//Cast transform the pawn into a tank
 	return Cast<ATank>(GetPawn());
 }

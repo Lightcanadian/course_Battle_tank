@@ -1,7 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "public/TankAIController.h"
-
+/*
+At begin play make sure that it has all the element to function
+*/
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -28,11 +30,17 @@ void ATankAIController::BeginPlay()
 
 }
 
+/*
+Return the pawn as a tank
+*/
 ATank * ATankAIController::GetAIControlledTank() const
 {	
 	return Cast<ATank>(GetPawn());	
 }
 
+/*
+find the player in the world and return it as a tank
+*/
 ATank * ATankAIController::GetPlayerTank() const
 {
 	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
@@ -45,7 +53,9 @@ ATank * ATankAIController::GetPlayerTank() const
 		return Cast<ATank>(PlayerTank);
 	}
 }
-
+/*
+At every tick will try to aim at player
+*/
 void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
